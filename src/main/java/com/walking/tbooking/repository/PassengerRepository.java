@@ -41,6 +41,23 @@ public class PassengerRepository {
         }
     }
 
+    public List<Passenger> findAll() {
+        var sql = """
+                SELECT id, first_name, last_name, patronymic, gender, birth_date, passport_data, user_id
+                FROM passenger
+                """;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            ResultSet rs = statement.executeQuery();
+
+            return converter.convert(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка при получении пассажиров", e);
+        }
+    }
+
     public Passenger create(Passenger passenger) {
         try (Connection connection = dataSource.getConnection()) {
             return create(passenger, connection);

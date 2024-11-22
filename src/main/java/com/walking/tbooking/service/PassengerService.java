@@ -12,8 +12,12 @@ public class PassengerService {
         this.passengerRepository = passengerRepository;
     }
 
-    public List<Passenger> getPassengers(Long userId) {
+    public List<Passenger> getPassengersByUserId(Long userId) {
         return passengerRepository.findByUserId(userId);
+    }
+
+    public List<Passenger> getPassengers() {
+        return passengerRepository.findAll();
     }
 
     public Passenger create(Passenger passenger) {

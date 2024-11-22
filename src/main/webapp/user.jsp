@@ -11,6 +11,6 @@
     <title>User page</title>
 </head>
 <body>
-    <h1>TEMP</h1>
+    <a href="${pageContext.request.contextPath}/passenger">Пассажиры</a>
 </body>
 </html>

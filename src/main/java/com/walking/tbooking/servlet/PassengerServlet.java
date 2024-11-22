@@ -42,7 +42,8 @@ public class PassengerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var userId = (Long) req.getSession().getAttribute("userId");
 
-        req.setAttribute("passengers", passengerService.getPassengers(userId));
+        req.setAttribute("passengersByUserId", passengerService.getPassengersByUserId(userId));
+
         req.getRequestDispatcher("passengers.jsp")
                 .forward(req, resp);
     }

@@ -100,6 +100,7 @@ public class UserRepository {
             if (generatedKeys.next()) {
                 user.setId(generatedKeys.getLong("id"));
             }
+
             return user;
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при обновлении пользователя", e);

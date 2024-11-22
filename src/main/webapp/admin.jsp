@@ -11,6 +11,6 @@
     <title>Admin page</title>
 </head>
 <body>
-    <h1>TEMP</h1>
+    <a href="${pageContext.request.contextPath}/passengerInfo">Все пассажиры</a>
 </body>
 </html>

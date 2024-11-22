@@ -13,7 +13,7 @@
 </head>
 <body>
     <h1>Зарегистрированные пассажиры</h1>
-    <c:if test="${not empty requestScope.passengers}">
+    <c:if test="${not empty requestScope.passengersByUserId}">
         <table>
             <tr>
                 <th>Имя</th>
@@ -23,7 +23,7 @@
                 <th>Дата рождения</th>
                 <th>Паспортные данные</th>
             </tr>
-            <c:forEach var="passenger" items="${requestScope.passengers}">
+            <c:forEach var="passenger" items="${requestScope.passengersByUserId}">
                 <tr>
                     <td>${passenger.firstName}</td>
                     <td>${passenger.lastName}</td>

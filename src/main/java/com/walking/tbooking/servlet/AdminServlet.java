@@ -65,4 +65,20 @@ public class AdminServlet extends HttpServlet {
 
         req.setAttribute(ResponseJsonSerializerFilter.POJO_RESPONSE_BODY, userDto);
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Long id = Long.valueOf(req.getParameter("id"));
+        boolean isDeleted = userService.delete(id);
+
+        if (isDeleted) {
+            resp.setStatus(HttpServletResponse.SC_OK);
+            resp.getWriter()
+                    .write("Пользователь успешно удален");
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            resp.getWriter()
+                    .write("Пользователь не найден");
+        }
+    }
 }

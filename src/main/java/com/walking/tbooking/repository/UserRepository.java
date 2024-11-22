@@ -106,6 +106,22 @@ public class UserRepository {
         }
     }
 
+    public boolean deleteById(Long id) {
+        var sql = """
+                DELETE FROM \"user\" WHERE id = ?
+                """;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setLong(1, id);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка при удалении пользователя", e);
+        }
+    }
+
     public boolean adminExists() {
         var sql = """
                 SELECT count(*) FROM \"user\" WHERE role = 'ADMIN'

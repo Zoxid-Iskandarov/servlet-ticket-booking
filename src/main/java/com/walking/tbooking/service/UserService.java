@@ -45,6 +45,10 @@ public class UserService {
         return userRepository.update(user);
     }
 
+    public boolean delete(Long id) {
+        return userRepository.deleteById(id);
+    }
+
     public void updateLastLogin(Long id) {
         userRepository.updateLastLogin(id);
     }

@@ -44,7 +44,7 @@ public class AuthServlet extends HttpServlet {
             if (user.getRole().equals(Role.ADMIN)) {
                 resp.sendRedirect(req.getContextPath() + "/admin");
             } else {
-                resp.sendRedirect(req.getContextPath() + "/passenger");
+                resp.sendRedirect(req.getContextPath() + "/user");
             }
         } catch (AuthException e) {
             handleError(req, resp, e);

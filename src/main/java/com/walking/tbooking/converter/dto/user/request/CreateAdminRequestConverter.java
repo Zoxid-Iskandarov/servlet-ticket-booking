@@ -5,7 +5,7 @@ import com.walking.tbooking.domain.users.Role;
 import com.walking.tbooking.domain.users.User;
 import com.walking.tbooking.model.user.request.CreateUserRequest;
 
-public class CreateUserRequestConverter implements Converter<CreateUserRequest, User> {
+public class CreateAdminRequestConverter implements Converter<CreateUserRequest, User> {
     @Override
     public User convert(CreateUserRequest from) {
         var user = new User();

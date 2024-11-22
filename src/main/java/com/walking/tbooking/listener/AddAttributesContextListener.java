@@ -8,7 +8,8 @@ import com.walking.tbooking.converter.dto.passenger.PassengerDtoConverter;
 import com.walking.tbooking.converter.dto.passenger.request.CreatePassengerRequestConverter;
 import com.walking.tbooking.converter.dto.passenger.request.UpdatePassengerRequestConverter;
 import com.walking.tbooking.converter.dto.user.UserDtoConverter;
-import com.walking.tbooking.converter.dto.user.request.CreateUserRequestConverter;
+import com.walking.tbooking.converter.dto.user.request.CreateAdminRequestConverter;
+import com.walking.tbooking.converter.dto.user.request.UpdateAdminRequestConverter;
 import com.walking.tbooking.converter.dto.user.request.UpdateUserRequestConverter;
 import com.walking.tbooking.repository.PassengerRepository;
 import com.walking.tbooking.repository.UserRepository;
@@ -51,11 +52,14 @@ public class AddAttributesContextListener implements ServletContextListener {
         var userDtoConverter = new UserDtoConverter();
         servletContext.setAttribute(ContextAttributeNames.USER_DTO_CONVERTER, userDtoConverter);
 
-        var createUserRequestConverter = new CreateUserRequestConverter();
-        servletContext.setAttribute(ContextAttributeNames.CREATE_USER_REQUEST_CONVERTER, createUserRequestConverter);
-
         var updateUserRequestConverter = new UpdateUserRequestConverter();
         servletContext.setAttribute(ContextAttributeNames.UPDATE_USER_REQUEST_CONVERTER, updateUserRequestConverter);
+
+        var createAdminRequestConverter = new CreateAdminRequestConverter();
+        servletContext.setAttribute(ContextAttributeNames.CREATE_ADMIN_REQUEST_CONVERTER, createAdminRequestConverter);
+
+        var updateAdminRequestConverter = new UpdateAdminRequestConverter();
+        servletContext.setAttribute(ContextAttributeNames.UPDATE_ADMIN_REQUEST_CONVERTER, updateAdminRequestConverter);
 
         var passengerDtoConverter = new PassengerDtoConverter();
         servletContext.setAttribute(ContextAttributeNames.PASSENGER_DTO_CONVERTER, passengerDtoConverter);

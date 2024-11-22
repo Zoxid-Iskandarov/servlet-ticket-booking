@@ -5,7 +5,7 @@ import com.walking.tbooking.domain.users.Role;
 import com.walking.tbooking.domain.users.User;
 import com.walking.tbooking.model.user.request.UpdateUserRequest;
 
-public class UpdateUserRequestConverter implements Converter<UpdateUserRequest, User> {
+public class UpdateAdminRequestConverter implements Converter<UpdateUserRequest, User> {
     @Override
     public User convert(UpdateUserRequest from) {
         var user = new User();
@@ -16,7 +16,7 @@ public class UpdateUserRequestConverter implements Converter<UpdateUserRequest, 
         user.setFirstName(from.getFirstName());
         user.setLastName(from.getLastName());
         user.setPatronymic(from.getPatronymic());
-        user.setRole(Role.USER);
+        user.setRole(Role.ADMIN);
 
         return user;
     }

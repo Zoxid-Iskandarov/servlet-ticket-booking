@@ -2,7 +2,6 @@ package com.walking.tbooking.converter.dto.passenger.request;
 
 import com.walking.tbooking.converter.Converter;
 import com.walking.tbooking.domain.passenger.Passenger;
-import com.walking.tbooking.domain.users.Role;
 import com.walking.tbooking.model.passenger.request.CreatePassengerRequest;
 
 public class CreatePassengerRequestConverter implements Converter<CreatePassengerRequest, Passenger> {
@@ -16,7 +15,7 @@ public class CreatePassengerRequestConverter implements Converter<CreatePassenge
         passenger.setGender(from.getGender());
         passenger.setBirthDate(from.getBirthDate());
         passenger.setPassportData(from.getPassportData());
-        passenger.setUserId(Role.ADMIN);
+        passenger.setUserId(from.getUserId());
 
         return passenger;
     }

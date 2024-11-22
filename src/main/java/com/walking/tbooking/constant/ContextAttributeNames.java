@@ -5,8 +5,9 @@ public class ContextAttributeNames {
     public static final String USER_CONVERTER = "userConverter";
     public static final String PASSENGER_CONVERTER = "passengerConverter";
     public static final String USER_DTO_CONVERTER = "userDtoConverter";
-    public static final String CREATE_USER_REQUEST_CONVERTER = "createUserRequestConverter";
     public static final String UPDATE_USER_REQUEST_CONVERTER = "updateUserRequestConverter";
+    public static final String CREATE_ADMIN_REQUEST_CONVERTER = "createAdminRequestConverter";
+    public static final String UPDATE_ADMIN_REQUEST_CONVERTER = "updateAdminRequestConverter";
     public static final String PASSENGER_DTO_CONVERTER = "passengerDtoConverter";
     public static final String CREATE_PASSENGER_REQUEST_CONVERTER = "createPassengerRequestConverter";
     public static final String UPDATE_PASSENGER_REQUEST_CONVERTER = "updatePassengerRequestConverter";

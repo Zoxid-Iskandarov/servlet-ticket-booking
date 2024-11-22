@@ -1,7 +1,5 @@
 package com.walking.tbooking.model.user.request;
 
-import com.walking.tbooking.domain.users.Role;
-
 public class UpdateUserRequest {
     private Long id;
     private String email;

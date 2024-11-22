@@ -73,6 +73,8 @@ public class RequestJsonDeserializerFilter extends HttpFilter {
         });
         targetTypes.put("/admin&&PUT", new TypeReference<UpdateUserRequest>() {
         });
+        targetTypes.put("/user&&PUT", new TypeReference<UpdateUserRequest>() {
+        });
         targetTypes.put("/passenger&&POST", new TypeReference<CreatePassengerRequest>() {
         });
         targetTypes.put("/passenger&&PUT", new TypeReference<UpdatePassengerRequest>() {

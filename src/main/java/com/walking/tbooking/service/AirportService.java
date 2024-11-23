@@ -4,7 +4,6 @@ import com.walking.tbooking.domain.airport.Airport;
 import com.walking.tbooking.repository.AirportRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public class AirportService {
     private final AirportRepository airportRepository;
@@ -17,8 +16,9 @@ public class AirportService {
         return airportRepository.findAll();
     }
 
-    public Optional<Airport> getAirport(Integer id) {
-        return airportRepository.findById(id);
+    public Airport getAirport(Integer id) {
+        return airportRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Аэропорт не найден"));
     }
 
     public Airport create(Airport airport) {

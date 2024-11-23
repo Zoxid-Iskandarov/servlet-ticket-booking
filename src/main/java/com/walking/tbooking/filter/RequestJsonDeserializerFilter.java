@@ -6,6 +6,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.walking.tbooking.constant.ContextAttributeNames;
 import com.walking.tbooking.model.airport.request.CreateAirportRequest;
 import com.walking.tbooking.model.airport.request.UpdateAirportRequest;
+import com.walking.tbooking.model.flight.request.CreateFlightRequest;
+import com.walking.tbooking.model.flight.request.UpdateFlightRequest;
 import com.walking.tbooking.model.passenger.request.CreatePassengerRequest;
 import com.walking.tbooking.model.passenger.request.UpdatePassengerRequest;
 import com.walking.tbooking.model.user.request.CreateUserRequest;
@@ -20,6 +22,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -34,6 +37,7 @@ public class RequestJsonDeserializerFilter extends HttpFilter {
     @Override
     public void init(FilterConfig config) throws ServletException {
         this.objectMapper = (ObjectMapper) config.getServletContext().getAttribute(ContextAttributeNames.OBJECT_MAPPER);
+
         this.objectMapper.registerModule(new JavaTimeModule());
 
         initTargetTypes();
@@ -84,6 +88,10 @@ public class RequestJsonDeserializerFilter extends HttpFilter {
         targetTypes.put("/airport&&POST", new TypeReference<CreateAirportRequest>() {
         });
         targetTypes.put("/airport&&PUT", new TypeReference<UpdateAirportRequest>() {
+        });
+        targetTypes.put("/flight&&POST", new TypeReference<CreateFlightRequest>() {
+        });
+        targetTypes.put("/flight&&PUT", new TypeReference<UpdateFlightRequest>() {
         });
     }
 }

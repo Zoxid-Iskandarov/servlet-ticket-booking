@@ -48,9 +48,9 @@ public class AirportServlet extends HttpServlet {
 
         if (paramId != null) {
             var id = Integer.valueOf(req.getParameter("id"));
-            var airport = airportService.getAirport(id)
-                    .orElseThrow(() -> new IllegalArgumentException("Airport not found"));
+            var airport = airportService.getAirport(id);
             var airportDto = airportDtoConverter.convert(airport);
+
             req.setAttribute("airport", airportDto);
         } else {
             var airports = airportService.getAllAirports();

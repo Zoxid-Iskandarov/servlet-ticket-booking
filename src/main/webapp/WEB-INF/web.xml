@@ -76,6 +76,10 @@
         <servlet-name>AirportServlet</servlet-name>
         <servlet-class>com.walking.tbooking.servlet.AirportServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FlightServlet</servlet-name>
+        <servlet-class>com.walking.tbooking.servlet.FlightServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>SignUpServlet</servlet-name>
@@ -104,5 +108,9 @@
     <servlet-mapping>
         <servlet-name>AirportServlet</servlet-name>
         <url-pattern>/airport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FlightServlet</servlet-name>
+        <url-pattern>/flight</url-pattern>
     </servlet-mapping>
 </web-app>

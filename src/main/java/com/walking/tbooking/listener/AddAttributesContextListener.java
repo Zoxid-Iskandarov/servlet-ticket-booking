@@ -3,11 +3,15 @@ package com.walking.tbooking.listener;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.walking.tbooking.constant.ContextAttributeNames;
 import com.walking.tbooking.converter.db.AirportConverter;
+import com.walking.tbooking.converter.db.FlightConverter;
 import com.walking.tbooking.converter.db.PassengerConverter;
 import com.walking.tbooking.converter.db.UserConverter;
 import com.walking.tbooking.converter.dto.airport.AirportDtoConverter;
 import com.walking.tbooking.converter.dto.airport.request.CreateAirportRequestConverter;
 import com.walking.tbooking.converter.dto.airport.request.UpdateAirportRequestConverter;
+import com.walking.tbooking.converter.dto.flight.FlightDtoConverter;
+import com.walking.tbooking.converter.dto.flight.request.CreateFlightRequestConverter;
+import com.walking.tbooking.converter.dto.flight.request.UpdateFlightRequestConverter;
 import com.walking.tbooking.converter.dto.passenger.PassengerDtoConverter;
 import com.walking.tbooking.converter.dto.passenger.request.CreatePassengerRequestConverter;
 import com.walking.tbooking.converter.dto.passenger.request.UpdatePassengerRequestConverter;
@@ -16,6 +20,7 @@ import com.walking.tbooking.converter.dto.user.request.CreateAdminRequestConvert
 import com.walking.tbooking.converter.dto.user.request.UpdateAdminRequestConverter;
 import com.walking.tbooking.converter.dto.user.request.UpdateUserRequestConverter;
 import com.walking.tbooking.repository.AirportRepository;
+import com.walking.tbooking.repository.FlightRepository;
 import com.walking.tbooking.repository.PassengerRepository;
 import com.walking.tbooking.repository.UserRepository;
 import com.walking.tbooking.service.*;
@@ -54,6 +59,9 @@ public class AddAttributesContextListener implements ServletContextListener {
         var airportConverter = new AirportConverter();
         servletContext.setAttribute(ContextAttributeNames.AIRPORT_CONVERTER, airportConverter);
 
+        var flightConverter = new FlightConverter();
+        servletContext.setAttribute(ContextAttributeNames.FLIGHT_CONVERTER, flightConverter);
+
         var userDtoConverter = new UserDtoConverter();
         servletContext.setAttribute(ContextAttributeNames.USER_DTO_CONVERTER, userDtoConverter);
 
@@ -84,6 +92,15 @@ public class AddAttributesContextListener implements ServletContextListener {
         var updateAirportRequestConverter = new UpdateAirportRequestConverter();
         servletContext.setAttribute(ContextAttributeNames.UPDATE_AIRPORT_REQUEST_CONVERTER, updateAirportRequestConverter);
 
+        var flightDtoConverter = new FlightDtoConverter();
+        servletContext.setAttribute(ContextAttributeNames.FLIGHT_DTO_CONVERTER, flightDtoConverter);
+
+        var createFlightRequestConverter = new CreateFlightRequestConverter();
+        servletContext.setAttribute(ContextAttributeNames.CREATE_FLIGHT_REQUEST_CONVERTER, createFlightRequestConverter);
+
+        var updateFlightRequestConverter = new UpdateFlightRequestConverter();
+        servletContext.setAttribute(ContextAttributeNames.UPDATE_FLIGHT_REQUEST_CONVERTER, updateFlightRequestConverter);
+
         var userRepository = new UserRepository(dataSource, userConverter);
         servletContext.setAttribute(ContextAttributeNames.USER_REPOSITORY, userRepository);
 
@@ -92,6 +109,9 @@ public class AddAttributesContextListener implements ServletContextListener {
 
         var airportRepository = new AirportRepository(dataSource, airportConverter);
         servletContext.setAttribute(ContextAttributeNames.AIRPORT_REPOSITORY, airportRepository);
+
+        var flightRepository = new FlightRepository(dataSource, flightConverter);
+        servletContext.setAttribute(ContextAttributeNames.FLIGHT_REPOSITORY, flightRepository);
 
         var encodingService = new EncodingService();
         servletContext.setAttribute(ContextAttributeNames.ENCODING_SERVICE, encodingService);
@@ -104,6 +124,9 @@ public class AddAttributesContextListener implements ServletContextListener {
 
         var airportService = new AirportService(airportRepository);
         servletContext.setAttribute(ContextAttributeNames.AIRPORT_SERVICE, airportService);
+
+        var flightService = new FlightService(flightRepository);
+        servletContext.setAttribute(ContextAttributeNames.FLIGHT_SERVICE, flightService);
 
         var migrationService = new MigrationService(dataSource);
         servletContext.setAttribute(ContextAttributeNames.MIGRATION_SERVICE, migrationService);

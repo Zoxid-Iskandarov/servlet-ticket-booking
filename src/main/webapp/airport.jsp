@@ -13,7 +13,18 @@
 </head>
 <body>
     <c:if test="${not empty requestScope.airport}">
-        <h1>${requestScope.airport}</h1>
+        <table>
+            <tr>
+                <th>Коде</th>
+                <th>Название</th>
+                <th>Адрес</th>
+            </tr>
+            <tr>
+                <td>${requestScope.airport.code}</td>
+                <td>${requestScope.airport.name}</td>
+                <td>${requestScope.airport.address}</td>
+            </tr>
+        </table>
     </c:if>
 
     <c:if test="${not empty requestScope.airports}">

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.walking.tbooking.constant.ContextAttributeNames;
+import com.walking.tbooking.model.airport.request.CreateAirportRequest;
+import com.walking.tbooking.model.airport.request.UpdateAirportRequest;
 import com.walking.tbooking.model.passenger.request.CreatePassengerRequest;
 import com.walking.tbooking.model.passenger.request.UpdatePassengerRequest;
 import com.walking.tbooking.model.user.request.CreateUserRequest;
@@ -78,6 +80,10 @@ public class RequestJsonDeserializerFilter extends HttpFilter {
         targetTypes.put("/passenger&&POST", new TypeReference<CreatePassengerRequest>() {
         });
         targetTypes.put("/passenger&&PUT", new TypeReference<UpdatePassengerRequest>() {
+        });
+        targetTypes.put("/airport&&POST", new TypeReference<CreateAirportRequest>() {
+        });
+        targetTypes.put("/airport&&PUT", new TypeReference<UpdateAirportRequest>() {
         });
     }
 }

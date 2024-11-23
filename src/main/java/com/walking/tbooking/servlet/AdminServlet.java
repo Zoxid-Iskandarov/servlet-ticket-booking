@@ -68,8 +68,8 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.valueOf(req.getParameter("id"));
-        boolean isDeleted = userService.delete(id);
+        var id = Long.valueOf(req.getParameter("id"));
+        var isDeleted = userService.delete(id);
 
         if (isDeleted) {
             resp.setStatus(HttpServletResponse.SC_OK);

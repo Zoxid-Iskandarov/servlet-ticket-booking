@@ -117,6 +117,7 @@ public class UserRepository {
 
             statement.setLong(1, id);
             int rowsAffected = statement.executeUpdate();
+
             return rowsAffected > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при удалении пользователя", e);

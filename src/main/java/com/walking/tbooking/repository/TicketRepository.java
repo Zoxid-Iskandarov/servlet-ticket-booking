@@ -16,6 +16,30 @@ public class TicketRepository {
         this.converter = converter;
     }
 
+    public List<Ticket> findAll() {
+        var sql = """
+                SELECT id, 
+                       flight_id, 
+                       passenger_id, 
+                       seat_number, 
+                       service_class, 
+                       baggage_allowance, 
+                       hand_baggage_allowance, 
+                       is_canceled
+                FROM ticket 
+                """;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            ResultSet rs = statement.executeQuery();
+
+            return converter.convert(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка при получении билетов", e);
+        }
+    }
+
     public List<Ticket> findByPassengerId(Long passengerId) {
         try (Connection connection = dataSource.getConnection()) {
             return findByPassengerId(passengerId, connection);
@@ -136,6 +160,32 @@ public class TicketRepository {
             return rowsAffected > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при отмене билета", e);
+        }
+    }
+
+    public boolean cancelTicketsByPassengerId(Long passengerId) {
+        try (Connection connection = dataSource.getConnection()) {
+            return cancelTicketsByPassengerId(passengerId, connection);
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка при отмене билетов", e);
+        }
+    }
+
+    private boolean cancelTicketsByPassengerId(Long passengerId, Connection connection) {
+        var sql = """
+                UPDATE ticket 
+                SET is_canceled = true 
+                WHERE passenger_id = ?
+                """;
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setLong(1, passengerId);
+            int rowsAffected = statement.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка при отмене билетов", e);
         }
     }
 

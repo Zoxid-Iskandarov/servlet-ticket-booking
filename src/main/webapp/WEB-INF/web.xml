@@ -84,6 +84,10 @@
         <servlet-name>TicketServlet</servlet-name>
         <servlet-class>com.walking.tbooking.servlet.TicketServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TicketInfoServlet</servlet-name>
+        <servlet-class>com.walking.tbooking.servlet.TicketInfoServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>SignUpServlet</servlet-name>
@@ -121,4 +125,9 @@
         <servlet-name>TicketServlet</servlet-name>
         <url-pattern>/ticket</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TicketInfoServlet</servlet-name>
+        <url-pattern>/ticketInfo</url-pattern>
+    </servlet-mapping>
+
 </web-app>

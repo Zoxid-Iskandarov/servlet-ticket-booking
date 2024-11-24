@@ -14,5 +14,6 @@
     <p><a href="${pageContext.request.contextPath}/passengerInfo">Пассажиры</a></p>
     <p><a href="${pageContext.request.contextPath}/airport">Аэропорты</a></p>
     <p><a href="${pageContext.request.contextPath}/flight">Рейсы</a></p>
+    <p><a href="${pageContext.request.contextPath}/ticketInfo">Билеты</a></p>
 </body>
 </html>

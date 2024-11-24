@@ -12,6 +12,10 @@ public class TicketService {
         this.ticketRepository = ticketRepository;
     }
 
+    public List<Ticket> getTickets() {
+        return ticketRepository.findAll();
+    }
+
     public List<Ticket> getTicketsByPassengerId(Long id) {
         return ticketRepository.findByPassengerId(id);
     }
@@ -26,5 +30,9 @@ public class TicketService {
 
     public boolean cancelTicket(Long id) {
         return ticketRepository.markTicketAsCanceled(id);
+    }
+
+    public boolean cancelTicketByPassengerId(Long passengerId) {
+        return ticketRepository.cancelTicketsByPassengerId(passengerId);
     }
 }

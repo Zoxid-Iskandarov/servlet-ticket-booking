@@ -53,7 +53,7 @@ public class AirportServlet extends HttpServlet {
 
             req.setAttribute("airport", airportDto);
         } else {
-            var airports = airportService.getAllAirports();
+            var airports = airportService.getAirports();
             var response = new ArrayList<AirportDto>();
 
             for (var airport : airports) {

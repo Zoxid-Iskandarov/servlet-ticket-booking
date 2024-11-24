@@ -16,8 +16,7 @@ public class UserStatusFilter extends HttpFilter {
 
     @Override
     public void init(FilterConfig config) throws ServletException {
-        this.userService = (UserService) config.getServletContext().getAttribute(
-                ContextAttributeNames.USER_SERVICE);
+        this.userService = (UserService) config.getServletContext().getAttribute(ContextAttributeNames.USER_SERVICE);
     }
 
     @Override
@@ -33,8 +32,8 @@ public class UserStatusFilter extends HttpFilter {
             res.setStatus(HttpServletResponse.SC_FORBIDDEN);
             res.getWriter()
                     .write("Доступ запрещен");
-        } else {
-            chain.doFilter(req, res);
         }
+
+        chain.doFilter(req, res);
     }
 }

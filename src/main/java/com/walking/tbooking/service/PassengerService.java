@@ -12,12 +12,12 @@ public class PassengerService {
         this.passengerRepository = passengerRepository;
     }
 
-    public List<Passenger> getPassengersByUserId(Long userId) {
-        return passengerRepository.findByUserId(userId);
-    }
-
     public List<Passenger> getPassengers() {
         return passengerRepository.findAll();
+    }
+
+    public List<Passenger> getPassengersByUserId(Long userId) {
+        return passengerRepository.findByUserId(userId);
     }
 
     public Passenger create(Passenger passenger) {
@@ -28,7 +28,7 @@ public class PassengerService {
         return passengerRepository.update(passenger);
     }
 
-    public void delete(Long id) {
-        passengerRepository.deleteById(id);
+    public boolean delete(Long id) {
+        return passengerRepository.deleteById(id);
     }
 }

@@ -16,7 +16,6 @@ public class AdminFilter extends HttpFilter {
             "/admin", "/passengerInfo", "/ticketInfo", "/user/block", "/user/unblock"
     );
 
-
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         if (!ADMIN_API.contains(req.getServletPath())) {
@@ -29,7 +28,7 @@ public class AdminFilter extends HttpFilter {
         if (user.getRole().equals(Role.USER)) {
             res.setStatus(HttpServletResponse.SC_FORBIDDEN);
             res.getWriter()
-                    .write("Доступ запрешен");
+                    .write("Доступ запрещен");
             return;
         }
 

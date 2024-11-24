@@ -20,37 +20,52 @@ public class PassengerRepository {
         try (Connection connection = dataSource.getConnection()) {
             return findByUserId(userId, connection);
         } catch (SQLException e) {
-            throw new RuntimeException("Ошибка при получении паражира", e);
+            throw new RuntimeException("Ошибка при получении пассажиров по userId", e);
         }
     }
 
-    public List<Passenger> findByUserId(Long userId, Connection connection) {
+    private List<Passenger> findByUserId(Long userId, Connection connection) {
         var sql = """
-                SELECT id, first_name, last_name, patronymic, gender, birth_date, passport_data, user_id
-                FROM passenger WHERE user_id = ?
+                SELECT id, 
+                       first_name, 
+                       last_name, 
+                       patronymic, 
+                       gender, 
+                       birth_date, 
+                       passport_data, 
+                       user_id
+                FROM passenger 
+                WHERE user_id = ?
                 """;
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, userId);
-            ResultSet rs = statement.executeQuery();
+            var rs = statement.executeQuery();
 
             return converter.convert(rs);
         } catch (SQLException e) {
-            throw new RuntimeException("Ошибка при получении паражира", e);
+            throw new RuntimeException("Ошибка при получении пассажиров по userId", e);
         }
     }
 
     public List<Passenger> findAll() {
         var sql = """
-                SELECT id, first_name, last_name, patronymic, gender, birth_date, passport_data, user_id
+                SELECT id, 
+                       first_name, 
+                       last_name, 
+                       patronymic, 
+                       gender, 
+                       birth_date, 
+                       passport_data, 
+                       user_id
                 FROM passenger
                 """;
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            ResultSet rs = statement.executeQuery();
+            var rs = statement.executeQuery();
 
             return converter.convert(rs);
         } catch (SQLException e) {
@@ -77,7 +92,7 @@ public class PassengerRepository {
             setParameters(passenger, statement);
             statement.executeUpdate();
 
-            ResultSet generatedKeys = statement.getGeneratedKeys();
+            var generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 passenger.setId(generatedKeys.getLong("id"));
             }
@@ -109,16 +124,11 @@ public class PassengerRepository {
                 WHERE id = ?
                 """;
 
-        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             setParameters(passenger, statement);
             statement.setLong(8, passenger.getId());
             statement.executeUpdate();
-
-            ResultSet generatedKeys = statement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                passenger.setId(generatedKeys.getLong("id"));
-            }
 
             return passenger;
         } catch (SQLException e) {
@@ -126,16 +136,17 @@ public class PassengerRepository {
         }
     }
 
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         var sql = """
-                DELETE FROM passenger WHERE id = ?
+                DELETE FROM passenger 
+                WHERE id = ?
                 """;
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, id);
-            statement.executeUpdate();
+            return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при удалении пассажира", e);
         }

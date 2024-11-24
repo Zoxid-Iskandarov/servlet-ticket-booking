@@ -32,8 +32,7 @@ public class TicketRepository {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            ResultSet rs = statement.executeQuery();
-
+            var rs = statement.executeQuery();
             return converter.convert(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при получении билетов", e);
@@ -44,7 +43,7 @@ public class TicketRepository {
         try (Connection connection = dataSource.getConnection()) {
             return findByPassengerId(passengerId, connection);
         } catch (SQLException e) {
-            throw new RuntimeException("Ошибка при получении билетов", e);
+            throw new RuntimeException("Ошибка при получении билетов по ID пассажира", e);
         }
     }
 
@@ -65,11 +64,11 @@ public class TicketRepository {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, passengerId);
-            ResultSet rs = statement.executeQuery();
+            var rs = statement.executeQuery();
 
             return converter.convert(rs);
         } catch (SQLException e) {
-            throw new RuntimeException("Ошибка при получении билетов", e);
+            throw new RuntimeException("Ошибка при получении билетов по ID пассажира", e);
         }
     }
 
@@ -94,11 +93,11 @@ public class TicketRepository {
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, id);
-            ResultSet rs = statement.executeQuery();
+            var rs = statement.executeQuery();
 
             return converter.convert(rs);
         } catch (SQLException e) {
-            throw new RuntimeException("Ошибка при получении актуальных билетов", e);
+            throw new RuntimeException("Ошибка при получении актуальных билетов по ID пассажира", e);
         }
     }
 
@@ -126,7 +125,7 @@ public class TicketRepository {
             setParameters(ticket, statement);
             statement.executeUpdate();
 
-            ResultSet generatedKeys = statement.getGeneratedKeys();
+            var generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 ticket.setId(generatedKeys.getLong("id"));
             }
@@ -155,9 +154,7 @@ public class TicketRepository {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, id);
-            int rowsAffected = statement.executeUpdate();
-
-            return rowsAffected > 0;
+            return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при отмене билета", e);
         }
@@ -167,7 +164,7 @@ public class TicketRepository {
         try (Connection connection = dataSource.getConnection()) {
             return cancelTicketsByPassengerId(passengerId, connection);
         } catch (SQLException e) {
-            throw new RuntimeException("Ошибка при отмене билетов", e);
+            throw new RuntimeException("Ошибка при отмене билетов по ID пассажира", e);
         }
     }
 
@@ -181,11 +178,9 @@ public class TicketRepository {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, passengerId);
-            int rowsAffected = statement.executeUpdate();
-
-            return rowsAffected > 0;
+            return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new RuntimeException("Ошибка при отмене билетов", e);
+            throw new RuntimeException("Ошибка при отмене билетов по ID пассажира", e);
         }
     }
 

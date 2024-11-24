@@ -32,8 +32,7 @@ public class FlightRepository {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            ResultSet rs = statement.executeQuery();
-
+            var rs = statement.executeQuery();
             return converter.convertMany(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при получении рейсов", e);
@@ -57,13 +56,14 @@ public class FlightRepository {
                     arrival_airport_id, 
                     total_seats, 
                     available_seats
-                FROM flight WHERE id = ?
+                FROM flight 
+                WHERE id = ?
                 """;
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, id);
-            ResultSet rs = statement.executeQuery();
+            var rs = statement.executeQuery();
 
             return converter.convert(rs);
         } catch (SQLException e) {
@@ -90,7 +90,7 @@ public class FlightRepository {
             setParameters(flight, statement);
             statement.executeUpdate();
 
-            ResultSet generatedKeys = statement.getGeneratedKeys();
+            var generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 flight.setId(generatedKeys.getLong("id"));
             }
@@ -135,16 +135,15 @@ public class FlightRepository {
 
     public boolean deleteById(Long id) {
         var sql = """
-                DELETE FROM flight WHERE id = ?
+                DELETE FROM flight 
+                WHERE id = ?
                 """;
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, id);
-            int rowsAffected = statement.executeUpdate();
-
-            return rowsAffected > 0;
+            return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при удалении рейса", e);
         }

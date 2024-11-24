@@ -17,9 +17,7 @@ public class AuthServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        var servletContext = config.getServletContext();
-
-        userService = (UserService) servletContext.getAttribute(ContextAttributeNames.USER_SERVICE);
+        this.userService = (UserService) config.getServletContext().getAttribute(ContextAttributeNames.USER_SERVICE);
     }
 
     @Override
@@ -65,6 +63,7 @@ public class AuthServlet extends HttpServlet {
 
     private void handleError(HttpServletRequest req, HttpServletResponse resp, AuthException e) throws ServletException, IOException {
         resp.setStatus(401);
-        req.getRequestDispatcher("/login.jsp").forward(req, resp);
+        req.getRequestDispatcher("/login.jsp")
+                .forward(req, resp);
     }
 }

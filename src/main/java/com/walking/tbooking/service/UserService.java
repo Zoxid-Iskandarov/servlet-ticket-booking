@@ -54,14 +54,18 @@ public class UserService {
     }
 
     public boolean blockUser(Long id) {
-        return userRepository.updateIsBlockedById(id, true);
+        return userRepository.updateStatus(id, true);
     }
 
     public boolean unblockUser(Long id) {
-        return userRepository.updateIsBlockedById(id, false);
+        return userRepository.updateStatus(id, false);
     }
 
     public boolean getUserStatus(Long id) {
         return userRepository.isUserBlocked(id);
+    }
+
+    public boolean adminPresent() {
+        return userRepository.adminPresent();
     }
 }

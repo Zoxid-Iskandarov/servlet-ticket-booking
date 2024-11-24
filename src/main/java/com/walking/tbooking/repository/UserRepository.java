@@ -20,24 +20,33 @@ public class UserRepository {
         try (Connection connection = dataSource.getConnection()) {
             return findByEmail(email, connection);
         } catch (SQLException e) {
-            throw new RuntimeException("Ошибка при получении пользователя", e);
+            throw new RuntimeException("Ошибка при получении пользователя по email", e);
         }
     }
 
-    public Optional<User> findByEmail(String email, Connection connection) {
+    private Optional<User> findByEmail(String email, Connection connection) {
         var sql = """
-                SELECT id, email, password_hash, first_name, last_name, patronymic, role, last_login, is_blocked
-                FROM \"user\" WHERE email = ?
+                SELECT id, 
+                       email, 
+                       password_hash, 
+                       first_name, 
+                       last_name, 
+                       patronymic, 
+                       role, 
+                       last_login, 
+                       is_blocked
+                FROM \"user\" 
+                WHERE email = ?
                 """;
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, email);
-            ResultSet rs = statement.executeQuery();
+            var rs = statement.executeQuery();
 
             return converter.convert(rs);
         } catch (SQLException e) {
-            throw new RuntimeException("Ошибка при получении пользователя", e);
+            throw new RuntimeException("Ошибка при получении пользователя по email", e);
         }
     }
 
@@ -49,17 +58,18 @@ public class UserRepository {
         }
     }
 
-    public User create(User user, Connection connection) {
+    private User create(User user, Connection connection) {
         var sql = """
                 INSERT INTO \"user\" (email, password_hash, first_name, last_name, patronymic, role)
                 VALUES (?, ?, ?, ?, ?, ?) 
                 """;
 
         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
             setParameters(user, statement);
             statement.executeUpdate();
 
-            ResultSet generatedKeys = statement.getGeneratedKeys();
+            var generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 user.setId(generatedKeys.getLong("id"));
             }
@@ -78,7 +88,7 @@ public class UserRepository {
         }
     }
 
-    public User update(User user, Connection connection) {
+    private User update(User user, Connection connection) {
         var sql = """
                 UPDATE \"user\" 
                     SET email = ?,
@@ -90,16 +100,11 @@ public class UserRepository {
                     WHERE id = ?
                 """;
 
-        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             setParameters(user, statement);
             statement.setLong(7, user.getId());
             statement.executeUpdate();
-
-            ResultSet generatedKeys = statement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                user.setId(generatedKeys.getLong("id"));
-            }
 
             return user;
         } catch (SQLException e) {
@@ -109,24 +114,26 @@ public class UserRepository {
 
     public boolean deleteById(Long id) {
         var sql = """
-                DELETE FROM \"user\" WHERE id = ?
+                DELETE FROM \"user\" 
+                WHERE id = ?
                 """;
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, id);
-            int rowsAffected = statement.executeUpdate();
 
-            return rowsAffected > 0;
+            return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при удалении пользователя", e);
         }
     }
 
-    public boolean adminExists() {
+    public boolean adminPresent() {
         var sql = """
-                SELECT count(*) FROM \"user\" WHERE role = 'ADMIN'
+                SELECT count(*) 
+                FROM \"user\" 
+                WHERE role = 'ADMIN'
                 """;
 
         try (Connection connection = dataSource.getConnection();
@@ -138,7 +145,7 @@ public class UserRepository {
                 return rs.getInt(1) > 0;
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Ошибка при проверке существования администратора", e);
+            throw new RuntimeException("Ошибка при проверке на существования администратора", e);
         }
 
         return false;
@@ -146,7 +153,9 @@ public class UserRepository {
 
     public void updateLastLogin(Long id) {
         var sql = """
-                UPDATE \"user\" SET last_login = now() WHERE id = ?
+                UPDATE \"user\" 
+                SET last_login = now() 
+                WHERE id = ?
                 """;
 
         try (Connection connection = dataSource.getConnection();
@@ -159,7 +168,7 @@ public class UserRepository {
         }
     }
 
-    public boolean updateIsBlockedById(Long id, boolean isBlocked) {
+    public boolean updateStatus(Long id, boolean isBlocked) {
         var sql = """
                 UPDATE \"user\" 
                 SET is_blocked = ? 
@@ -171,11 +180,10 @@ public class UserRepository {
 
             statement.setBoolean(1, isBlocked);
             statement.setLong(2, id);
-            var rowsAffected = statement.executeUpdate();
 
-            return rowsAffected > 0;
+            return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new RuntimeException("Ошибка при блокировке пользователя", e);
+            throw new RuntimeException("Ошибка при обновлении статуса пользователя", e);
         }
     }
 
@@ -188,12 +196,14 @@ public class UserRepository {
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
             statement.setLong(1, id);
-            ResultSet rs = statement.executeQuery();
+            var rs = statement.executeQuery();
 
-            rs.next();
-            return rs.getBoolean("is_blocked");
+            if (rs.next()) {
+                return rs.getBoolean("is_blocked");
+            } else {
+                throw new RuntimeException("Пользователь не найден");
+            }
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при получении информации о блокировке", e);
         }

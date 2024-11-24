@@ -26,8 +26,7 @@ public class AirportRepository {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            ResultSet rs = statement.executeQuery();
-
+            var rs = statement.executeQuery();
             return converter.convertMany(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при получении аэропортов", e);
@@ -45,13 +44,14 @@ public class AirportRepository {
     public Optional<Airport> findById(Integer id, Connection connection) {
         var sql = """
                 SELECT id, code, name, address
-                FROM airport WHERE id = ?
+                FROM airport 
+                WHERE id = ?
                 """;
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, id);
-            ResultSet rs = statement.executeQuery();
+            var rs = statement.executeQuery();
 
             return converter.convert(rs);
         } catch (SQLException e) {
@@ -78,7 +78,7 @@ public class AirportRepository {
             setParameters(airport, statement);
             statement.executeUpdate();
 
-            ResultSet generatedKeys = statement.getGeneratedKeys();
+            var generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 airport.setId(generatedKeys.getInt("id"));
             }
@@ -106,16 +106,11 @@ public class AirportRepository {
                     WHERE id = ?
                 """;
 
-        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             setParameters(airport, statement);
             statement.setInt(4, airport.getId());
             statement.executeUpdate();
-
-            ResultSet generatedKeys = statement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                airport.setId(generatedKeys.getInt("id"));
-            }
 
             return airport;
         } catch (SQLException e) {
@@ -125,16 +120,15 @@ public class AirportRepository {
 
     public boolean deleteById(Integer id) {
         var sql = """
-                DELETE FROM airport WHERE id = ?
+                DELETE FROM airport 
+                WHERE id = ?
                 """;
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setInt(1, id);
-            int rowsAffected = statement.executeUpdate();
-
-            return rowsAffected > 0;
+            return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при удалении аэропорта", e);
         }

@@ -16,6 +16,7 @@
     <c:if test="${not empty requestScope.passengersByUserId}">
         <table>
             <tr>
+                <th>ID</th>
                 <th>Имя</th>
                 <th>Фамилия</th>
                 <th>Отчество</th>
@@ -25,6 +26,11 @@
             </tr>
             <c:forEach var="passenger" items="${requestScope.passengersByUserId}">
                 <tr>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/ticket?id=${passenger.id}">
+                                ${passenger.id}
+                        </a>
+                    </td>
                     <td>${passenger.firstName}</td>
                     <td>${passenger.lastName}</td>
                     <td>${passenger.patronymic}</td>

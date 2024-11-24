@@ -2,10 +2,7 @@ package com.walking.tbooking.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.walking.tbooking.constant.ContextAttributeNames;
-import com.walking.tbooking.converter.db.AirportConverter;
-import com.walking.tbooking.converter.db.FlightConverter;
-import com.walking.tbooking.converter.db.PassengerConverter;
-import com.walking.tbooking.converter.db.UserConverter;
+import com.walking.tbooking.converter.db.*;
 import com.walking.tbooking.converter.dto.airport.AirportDtoConverter;
 import com.walking.tbooking.converter.dto.airport.request.CreateAirportRequestConverter;
 import com.walking.tbooking.converter.dto.airport.request.UpdateAirportRequestConverter;
@@ -15,14 +12,13 @@ import com.walking.tbooking.converter.dto.flight.request.UpdateFlightRequestConv
 import com.walking.tbooking.converter.dto.passenger.PassengerDtoConverter;
 import com.walking.tbooking.converter.dto.passenger.request.CreatePassengerRequestConverter;
 import com.walking.tbooking.converter.dto.passenger.request.UpdatePassengerRequestConverter;
+import com.walking.tbooking.converter.dto.ticket.TicketDtoConverter;
+import com.walking.tbooking.converter.dto.ticket.request.CreateTicketRequestConverter;
 import com.walking.tbooking.converter.dto.user.UserDtoConverter;
 import com.walking.tbooking.converter.dto.user.request.CreateAdminRequestConverter;
 import com.walking.tbooking.converter.dto.user.request.UpdateAdminRequestConverter;
 import com.walking.tbooking.converter.dto.user.request.UpdateUserRequestConverter;
-import com.walking.tbooking.repository.AirportRepository;
-import com.walking.tbooking.repository.FlightRepository;
-import com.walking.tbooking.repository.PassengerRepository;
-import com.walking.tbooking.repository.UserRepository;
+import com.walking.tbooking.repository.*;
 import com.walking.tbooking.service.*;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -61,6 +57,9 @@ public class AddAttributesContextListener implements ServletContextListener {
 
         var flightConverter = new FlightConverter();
         servletContext.setAttribute(ContextAttributeNames.FLIGHT_CONVERTER, flightConverter);
+
+        var ticketConverter = new TicketConverter();
+        servletContext.setAttribute(ContextAttributeNames.TICKET_CONVERTER, ticketConverter);
 
         var userDtoConverter = new UserDtoConverter();
         servletContext.setAttribute(ContextAttributeNames.USER_DTO_CONVERTER, userDtoConverter);
@@ -101,6 +100,12 @@ public class AddAttributesContextListener implements ServletContextListener {
         var updateFlightRequestConverter = new UpdateFlightRequestConverter();
         servletContext.setAttribute(ContextAttributeNames.UPDATE_FLIGHT_REQUEST_CONVERTER, updateFlightRequestConverter);
 
+        var ticketDtoConverter = new TicketDtoConverter();
+        servletContext.setAttribute(ContextAttributeNames.TICKET_DTO_CONVERTER, ticketDtoConverter);
+
+        var createTicketRequestConverter = new CreateTicketRequestConverter();
+        servletContext.setAttribute(ContextAttributeNames.CREATE_TICKET_REQUEST_CONVERTER, createTicketRequestConverter);
+
         var userRepository = new UserRepository(dataSource, userConverter);
         servletContext.setAttribute(ContextAttributeNames.USER_REPOSITORY, userRepository);
 
@@ -112,6 +117,9 @@ public class AddAttributesContextListener implements ServletContextListener {
 
         var flightRepository = new FlightRepository(dataSource, flightConverter);
         servletContext.setAttribute(ContextAttributeNames.FLIGHT_REPOSITORY, flightRepository);
+
+        var ticketRepository = new TicketRepository(dataSource, ticketConverter);
+        servletContext.setAttribute(ContextAttributeNames.TICKET_REPOSITORY, ticketRepository);
 
         var encodingService = new EncodingService();
         servletContext.setAttribute(ContextAttributeNames.ENCODING_SERVICE, encodingService);
@@ -127,6 +135,9 @@ public class AddAttributesContextListener implements ServletContextListener {
 
         var flightService = new FlightService(flightRepository);
         servletContext.setAttribute(ContextAttributeNames.FLIGHT_SERVICE, flightService);
+
+        var ticketService = new TicketService(ticketRepository);
+        servletContext.setAttribute(ContextAttributeNames.TICKET_SERVICE, ticketService);
 
         var migrationService = new MigrationService(dataSource);
         servletContext.setAttribute(ContextAttributeNames.MIGRATION_SERVICE, migrationService);

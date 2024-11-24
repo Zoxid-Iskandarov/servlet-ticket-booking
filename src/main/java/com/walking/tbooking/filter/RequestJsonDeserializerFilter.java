@@ -10,6 +10,7 @@ import com.walking.tbooking.model.flight.request.CreateFlightRequest;
 import com.walking.tbooking.model.flight.request.UpdateFlightRequest;
 import com.walking.tbooking.model.passenger.request.CreatePassengerRequest;
 import com.walking.tbooking.model.passenger.request.UpdatePassengerRequest;
+import com.walking.tbooking.model.ticket.request.CreateTicketRequest;
 import com.walking.tbooking.model.user.request.CreateUserRequest;
 import com.walking.tbooking.model.user.request.UpdateUserRequest;
 import jakarta.servlet.FilterChain;
@@ -92,6 +93,8 @@ public class RequestJsonDeserializerFilter extends HttpFilter {
         targetTypes.put("/flight&&POST", new TypeReference<CreateFlightRequest>() {
         });
         targetTypes.put("/flight&&PUT", new TypeReference<UpdateFlightRequest>() {
+        });
+        targetTypes.put("/ticket&&POST", new TypeReference<CreateTicketRequest>() {
         });
     }
 }

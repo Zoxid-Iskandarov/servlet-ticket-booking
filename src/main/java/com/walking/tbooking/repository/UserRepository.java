@@ -159,6 +159,46 @@ public class UserRepository {
         }
     }
 
+    public boolean updateIsBlockedById(Long id, boolean isBlocked) {
+        var sql = """
+                UPDATE \"user\" 
+                SET is_blocked = ? 
+                WHERE id = ?
+                """;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setBoolean(1, isBlocked);
+            statement.setLong(2, id);
+            var rowsAffected = statement.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка при блокировке пользователя", e);
+        }
+    }
+
+    public boolean isUserBlocked(Long id) {
+        var sql = """
+                SELECT is_blocked 
+                FROM \"user\" 
+                WHERE id = ?
+                """;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setLong(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            rs.next();
+            return rs.getBoolean("is_blocked");
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка при получении информации о блокировке", e);
+        }
+    }
+
     private void setParameters(User user, PreparedStatement statement) throws SQLException {
         statement.setString(1, user.getEmail());
         statement.setString(2, user.getPasswordHash());

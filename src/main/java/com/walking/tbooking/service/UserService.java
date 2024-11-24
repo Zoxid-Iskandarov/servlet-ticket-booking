@@ -52,4 +52,16 @@ public class UserService {
     public void updateLastLogin(Long id) {
         userRepository.updateLastLogin(id);
     }
+
+    public boolean blockUser(Long id) {
+        return userRepository.updateIsBlockedById(id, true);
+    }
+
+    public boolean unblockUser(Long id) {
+        return userRepository.updateIsBlockedById(id, false);
+    }
+
+    public boolean getUserStatus(Long id) {
+        return userRepository.isUserBlocked(id);
+    }
 }

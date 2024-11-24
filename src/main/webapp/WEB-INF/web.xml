@@ -30,9 +30,17 @@
         <filter-name>AdminFilter</filter-name>
         <filter-class>com.walking.tbooking.filter.AdminFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>UserStatusFilter</filter-name>
+        <filter-class>com.walking.tbooking.filter.UserStatusFilter</filter-class>
+    </filter>
 
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>UserStatusFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
@@ -47,6 +55,7 @@
         <filter-name>ResponseJsonSerilizerFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
 
     <servlet>
         <servlet-name>SignUpServlet</servlet-name>
@@ -88,6 +97,14 @@
         <servlet-name>TicketInfoServlet</servlet-name>
         <servlet-class>com.walking.tbooking.servlet.TicketInfoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BlockUserServlet</servlet-name>
+        <servlet-class>com.walking.tbooking.servlet.BlockUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UnblockUserServlet</servlet-name>
+        <servlet-class>com.walking.tbooking.servlet.UnblockUserServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>SignUpServlet</servlet-name>
@@ -128,6 +145,14 @@
     <servlet-mapping>
         <servlet-name>TicketInfoServlet</servlet-name>
         <url-pattern>/ticketInfo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlockUserServlet</servlet-name>
+        <url-pattern>/user/block</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnblockUserServlet</servlet-name>
+        <url-pattern>/user/unblock</url-pattern>
     </servlet-mapping>
 
 </web-app>

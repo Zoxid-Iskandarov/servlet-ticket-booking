@@ -6,6 +6,7 @@ import com.walking.tbooking.domain.passenger.Passenger;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
+import java.util.Optional;
 
 public class PassengerRepository {
     private final DataSource dataSource;
@@ -43,9 +44,42 @@ public class PassengerRepository {
             statement.setLong(1, userId);
             var rs = statement.executeQuery();
 
-            return converter.convert(rs);
+            return converter.convertMany(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при получении пассажиров по userId", e);
+        }
+    }
+
+    public Optional<Passenger> findById(Long id) {
+        try (Connection connection = dataSource.getConnection()) {
+            return findById(id, connection);
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка при получении пассажира по ID", e);
+        }
+    }
+
+    private Optional<Passenger> findById(Long id, Connection connection) {
+        var sql = """
+                SELECT id, 
+                       first_name, 
+                       last_name, 
+                       patronymic, 
+                       gender, 
+                       birth_date, 
+                       passport_data, 
+                       user_id
+                FROM passenger
+                WHERE id = ?
+                """;
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setLong(1, id);
+            ResultSet rs = statement.executeQuery();
+
+            return converter.convert(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка при получении пассажира по ID", e);
         }
     }
 
@@ -67,7 +101,7 @@ public class PassengerRepository {
 
             var rs = statement.executeQuery();
 
-            return converter.convert(rs);
+            return converter.convertMany(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при получении пассажиров", e);
         }
@@ -136,16 +170,17 @@ public class PassengerRepository {
         }
     }
 
-    public boolean deleteById(Long id) {
+    public boolean deleteById(Long id, Long userId) {
         var sql = """
                 DELETE FROM passenger 
-                WHERE id = ?
+                WHERE id = ? AND user_id = ?
                 """;
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setLong(1, id);
+            statement.setLong(2, userId);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при удалении пассажира", e);

@@ -61,7 +61,7 @@ public class UserService {
         return userRepository.updateStatus(id, false);
     }
 
-    public boolean getUserStatus(Long id) {
+    public boolean userBlocked(Long id) {
         return userRepository.isUserBlocked(id);
     }
 

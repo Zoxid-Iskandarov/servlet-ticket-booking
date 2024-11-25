@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class AdminFilter extends HttpFilter {
     private static final Set<String> ADMIN_API = Set.of(
-            "/admin", "/passengerInfo", "/ticketInfo", "/user/block", "/user/unblock"
+            "/admin", "/admin/passenger", "/admin/ticket", "/admin/flight", "/admin/airport", "/user/block", "/user/unblock"
     );
 
     @Override

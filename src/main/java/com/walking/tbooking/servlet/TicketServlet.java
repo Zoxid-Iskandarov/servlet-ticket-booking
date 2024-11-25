@@ -35,13 +35,17 @@ public class TicketServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.parseLong(req.getParameter("id"));
+        try {
+            var id = Long.parseLong(req.getParameter("id"));
 
-        req.setAttribute("tickets", ticketService.getTicketsByPassengerId(id));
-        req.setAttribute("activeTickets", ticketService.getActiveTicketsByPassengerId(id));
+            req.setAttribute("tickets", ticketService.getTicketsByPassengerId(id));
+            req.setAttribute("activeTickets", ticketService.getActiveTicketsByPassengerId(id));
 
-        req.getRequestDispatcher("ticket.jsp")
-                .forward(req, resp);
+            req.getRequestDispatcher("ticket.jsp")
+                    .forward(req, resp);
+        } catch (NumberFormatException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Не указан ID пассажира");
+        }
     }
 
     @Override
@@ -57,17 +61,21 @@ public class TicketServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.parseLong(req.getParameter("id"));
-        var flag = ticketService.cancelTicket(id);
+        try {
+            var id = Long.parseLong(req.getParameter("id"));
+            var flag = ticketService.cancelTicket(id);
 
-        if (flag) {
-            resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter()
-                    .write("Билет отменен");
-        } else {
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            resp.getWriter()
-                    .write("Билет не найден");
+            if (flag) {
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter()
+                        .write("Билет отменен");
+            } else {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                resp.getWriter()
+                        .write("Билет не найден");
+            }
+        } catch (NumberFormatException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Не указан ID билета");
         }
     }
 }

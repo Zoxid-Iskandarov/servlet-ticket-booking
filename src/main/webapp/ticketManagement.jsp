@@ -29,11 +29,16 @@
             <tbody>
             <c:forEach var="ticket" items="${requestScope.tickets}">
                 <tr>
-                    <td><a href="${pageContext.request.contextPath}/flight?id=${ticket.flightId}">
+                    <td>
+                        <a href="${pageContext.request.contextPath}/flight?id=${ticket.flightId}">
                             ${ticket.flightId}
-                    </a>
+                        </a>
                     </td>
-                    <td>${ticket.passengerId}</td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/admin/passenger?id=${ticket.passengerId}">
+                                ${ticket.passengerId}
+                        </a>
+                    </td>
                     <td>${ticket.seatNumber}</td>
                     <td>${ticket.serviceClass}</td>
                     <td>${ticket.baggageAllowance}</td>

@@ -84,13 +84,13 @@ public class RequestJsonDeserializerFilter extends HttpFilter {
         });
         targetTypes.put("/passenger&&PUT", new TypeReference<UpdatePassengerRequest>() {
         });
-        targetTypes.put("/airport&&POST", new TypeReference<CreateAirportRequest>() {
+        targetTypes.put("/admin/airport&&POST", new TypeReference<CreateAirportRequest>() {
         });
-        targetTypes.put("/airport&&PUT", new TypeReference<UpdateAirportRequest>() {
+        targetTypes.put("/admin/airport&&PUT", new TypeReference<UpdateAirportRequest>() {
         });
-        targetTypes.put("/flight&&POST", new TypeReference<CreateFlightRequest>() {
+        targetTypes.put("/admin/flight&&POST", new TypeReference<CreateFlightRequest>() {
         });
-        targetTypes.put("/flight&&PUT", new TypeReference<UpdateFlightRequest>() {
+        targetTypes.put("/admin/flight&&PUT", new TypeReference<UpdateFlightRequest>() {
         });
         targetTypes.put("/ticket&&POST", new TypeReference<CreateTicketRequest>() {
         });

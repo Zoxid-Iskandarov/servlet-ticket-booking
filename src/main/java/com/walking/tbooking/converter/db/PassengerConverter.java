@@ -7,10 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class PassengerConverter implements ResultSetConverter<List<Passenger>> {
+public class PassengerConverter implements ResultSetConverter<Optional<Passenger>> {
     @Override
-    public List<Passenger> convert(ResultSet rs) throws SQLException {
+    public Optional<Passenger> convert(ResultSet rs) throws SQLException {
+        return rs.next() ? Optional.of(mapToRow(rs)) : Optional.empty();
+    }
+
+    public List<Passenger> convertMany(ResultSet rs) throws SQLException {
         var passengers = new ArrayList<Passenger>();
 
         while (rs.next()) {

@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public class TicketInfoServlet extends HttpServlet {
+public class TicketManagementServlet extends HttpServlet {
     private TicketService ticketService;
 
     @Override
@@ -23,23 +23,26 @@ public class TicketInfoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("tickets", ticketService.getTickets());
 
-        req.getRequestDispatcher("/ticketInfo.jsp")
+        req.getRequestDispatcher("/ticketManagement.jsp")
                 .forward(req, resp);
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long passengerId = Long.parseLong(req.getParameter("passenger_id"));
-        var flag = ticketService.cancelTicketByPassengerId(passengerId);
-
-        if (flag) {
-            resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter()
-                    .write("Все билеты пассажира отменены");
-        } else {
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            resp.getWriter()
-                    .write("Ошибка при отмене билетов пассажира");
+        try {
+            var passengerId = Long.parseLong(req.getParameter("passenger_id"));
+            var flag = ticketService.cancelTicketByPassengerId(passengerId);
+            if (flag) {
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter()
+                        .write("Все билеты пассажира отменены");
+            } else {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                resp.getWriter()
+                        .write("Ошибка при отмене билетов пассажира");
+            }
+        } catch (NumberFormatException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Не указан ID пассажира");
         }
     }
 }

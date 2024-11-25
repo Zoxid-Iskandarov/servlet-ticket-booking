@@ -35,6 +35,9 @@
       <br>
       <br>
       <input type="submit" value="Sign Up">
+      <a href="${pageContext.request.contextPath}/auth">
+        <input type="button" value="Sign In">
+      </a>
     </form>
   </body>
 </html>

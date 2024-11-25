@@ -28,10 +28,11 @@ public class UserStatusFilter extends HttpFilter {
             return;
         }
 
-        if (userService.getUserStatus(userId)) {
-            res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        if (userService.userBlocked(userId)) {
+            res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             res.getWriter()
                     .write("Доступ запрещен");
+            return;
         }
 
         chain.doFilter(req, res);

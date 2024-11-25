@@ -18,7 +18,6 @@
             <thead>
             <tr>
                 <th>ID рейса</th>
-                <th>ID пассажира</th>
                 <th>Номер места</th>
                 <th>Класс обслуживания</th>
                 <th>Допустимый багаж</th>
@@ -33,7 +32,6 @@
                             ${ticket.flightId}
                         </a>
                     </td>
-                    <td>${ticket.passengerId}</td>
                     <td>${ticket.seatNumber}</td>
                     <td>${ticket.serviceClass}</td>
                     <td>${ticket.baggageAllowance}</td>
@@ -50,7 +48,6 @@
             <thead>
             <tr>
                 <th>ID рейса</th>
-                <th>ID пассажира</th>
                 <th>Номер места</th>
                 <th>Класс обслуживания</th>
                 <th>Допустимый багаж</th>
@@ -65,7 +62,6 @@
                             ${ticket.flightId}
                         </a>
                     </td>
-                    <td>${ticket.passengerId}</td>
                     <td>${ticket.seatNumber}</td>
                     <td>${ticket.serviceClass}</td>
                     <td>${ticket.baggageAllowance}</td>

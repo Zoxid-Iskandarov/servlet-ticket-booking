@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public class PassengerInfoServlet extends HttpServlet {
+public class PassengerManagementServlet extends HttpServlet {
     private PassengerService passengerService;
 
     @Override
@@ -22,17 +22,26 @@ public class PassengerInfoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("passengers", passengerService.getPassengers());
+        try {
+            var id = Long.parseLong(req.getParameter("id"));
+            req.setAttribute("passenger", passengerService.getPassengerById(id));
+        } catch (NumberFormatException e) {
+            req.setAttribute("passengers", passengerService.getPassengers());
+        }
 
-        req.getRequestDispatcher("/passengerInfo.jsp")
+        req.getRequestDispatcher("/passengerManagement.jsp")
                 .forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        var userId = Long.valueOf(req.getParameter("userId"));
+        try {
+            var userId = Long.parseLong(req.getParameter("userId"));
+            var passengers = passengerService.getPassengersByUserId(userId);
 
-        var passengers = passengerService.getPassengersByUserId(userId);
-        req.setAttribute(ResponseJsonSerializerFilter.POJO_RESPONSE_BODY, passengers);
+            req.setAttribute(ResponseJsonSerializerFilter.POJO_RESPONSE_BODY, passengers);
+        } catch (NumberFormatException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Не указан ID пользователя");
+        }
     }
 }

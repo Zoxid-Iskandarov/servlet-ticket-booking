@@ -69,4 +69,28 @@ public class PassengerServlet extends HttpServlet {
 
         req.setAttribute(ResponseJsonSerializerFilter.POJO_RESPONSE_BODY, passengerDto);
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var userId = (Long) req.getSession().getAttribute("userId");
+
+        try {
+            var passengerId = Long.parseLong(req.getParameter("id"));
+
+            var isDeleted = passengerService.delete(passengerId, userId);
+            if (isDeleted) {
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter()
+                        .write("Пассажир успешно удален");
+            } else {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                resp.getWriter()
+                        .write("Произошка ошибка при удалении пассажира");
+            }
+        } catch (NumberFormatException e) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resp.getWriter()
+                    .write("Не указан id пассажира");
+        }
+    }
 }

@@ -78,24 +78,32 @@
         <servlet-class>com.walking.tbooking.servlet.UserServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PassengerInfoServlet</servlet-name>
-        <servlet-class>com.walking.tbooking.servlet.PassengerInfoServlet</servlet-class>
+        <servlet-name>PassengerManagementServlet</servlet-name>
+        <servlet-class>com.walking.tbooking.servlet.PassengerManagementServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AirportServlet</servlet-name>
         <servlet-class>com.walking.tbooking.servlet.AirportServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AirportManagementServlet</servlet-name>
+        <servlet-class>com.walking.tbooking.servlet.AirportManagementServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>FlightServlet</servlet-name>
         <servlet-class>com.walking.tbooking.servlet.FlightServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FlightManagementServlet</servlet-name>
+        <servlet-class>com.walking.tbooking.servlet.FlightManagementServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TicketServlet</servlet-name>
         <servlet-class>com.walking.tbooking.servlet.TicketServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TicketInfoServlet</servlet-name>
-        <servlet-class>com.walking.tbooking.servlet.TicketInfoServlet</servlet-class>
+        <servlet-name>TicketManagementServlet</servlet-name>
+        <servlet-class>com.walking.tbooking.servlet.TicketManagementServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BlockUserServlet</servlet-name>
@@ -127,24 +135,32 @@
         <url-pattern>/user</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PassengerInfoServlet</servlet-name>
-        <url-pattern>/passengerInfo</url-pattern>
+        <servlet-name>PassengerManagementServlet</servlet-name>
+        <url-pattern>/admin/passenger</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AirportServlet</servlet-name>
         <url-pattern>/airport</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AirportManagementServlet</servlet-name>
+        <url-pattern>/admin/airport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>FlightServlet</servlet-name>
         <url-pattern>/flight</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FlightManagementServlet</servlet-name>
+        <url-pattern>/admin/flight</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TicketServlet</servlet-name>
         <url-pattern>/ticket</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TicketInfoServlet</servlet-name>
-        <url-pattern>/ticketInfo</url-pattern>
+        <servlet-name>TicketManagementServlet</servlet-name>
+        <url-pattern>/admin/ticket</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BlockUserServlet</servlet-name>
@@ -154,5 +170,4 @@
         <servlet-name>UnblockUserServlet</servlet-name>
         <url-pattern>/user/unblock</url-pattern>
     </servlet-mapping>
-
 </web-app>

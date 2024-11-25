@@ -20,6 +20,11 @@ public class PassengerService {
         return passengerRepository.findByUserId(userId);
     }
 
+    public Passenger getPassengerById(Long passengerId) {
+        return passengerRepository.findById(passengerId)
+                .orElseThrow(() -> new IllegalArgumentException("Пассажир не найден"));
+    }
+
     public Passenger create(Passenger passenger) {
         return passengerRepository.create(passenger);
     }
@@ -28,7 +33,7 @@ public class PassengerService {
         return passengerRepository.update(passenger);
     }
 
-    public boolean delete(Long id) {
-        return passengerRepository.deleteById(id);
+    public boolean delete(Long id, Long userId) {
+        return passengerRepository.deleteById(id, userId);
     }
 }

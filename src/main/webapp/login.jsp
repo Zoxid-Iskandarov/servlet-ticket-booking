@@ -28,6 +28,9 @@
             <br>
             <br>
             <input type="submit" value="Log In">
+            <a href="${pageContext.request.contextPath}/signUp">
+                <input type="button" value="Sign Up">
+            </a>
         </form>
     </div>
 </body>

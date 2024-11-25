@@ -21,17 +21,21 @@ public class UnblockUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        var id = Long.parseLong(req.getParameter("id"));
-        var flag = userService.unblockUser(id);
+        try {
+            var id = Long.parseLong(req.getParameter("id"));
+            var flag = userService.unblockUser(id);
 
-        if (flag) {
-            resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter()
-                    .write("Пользователь успешно разблокирован");
-        } else {
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            resp.getWriter()
-                    .write("Произошла ошибка при разблокировке пользователя");
+            if (flag) {
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter()
+                        .write("Пользователь успешно разблокирован");
+            } else {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.getWriter()
+                        .write("Произошла ошибка при разблокировке пользователя");
+            }
+        } catch (NumberFormatException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Не указан ID пользователя");
         }
     }
 }

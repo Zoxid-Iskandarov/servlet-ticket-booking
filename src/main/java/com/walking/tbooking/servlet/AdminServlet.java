@@ -68,17 +68,21 @@ public class AdminServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        var id = Long.valueOf(req.getParameter("id"));
-        var isDeleted = userService.delete(id);
+        try {
+            var id = Long.parseLong(req.getParameter("id"));
+            var isDeleted = userService.delete(id);
 
-        if (isDeleted) {
-            resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter()
-                    .write("Пользователь успешно удален");
-        } else {
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            resp.getWriter()
-                    .write("Пользователь не найден");
+            if (isDeleted) {
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter()
+                        .write("Пользователь успешно удален");
+            } else {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                resp.getWriter()
+                        .write("Пользователь не найден");
+            }
+        } catch (NumberFormatException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Не указан ID пользователя");
         }
     }
 }

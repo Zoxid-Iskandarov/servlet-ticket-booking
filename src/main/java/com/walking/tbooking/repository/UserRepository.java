@@ -196,6 +196,7 @@ public class UserRepository {
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
+
             statement.setLong(1, id);
             var rs = statement.executeQuery();
 

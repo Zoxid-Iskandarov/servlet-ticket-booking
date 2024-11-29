@@ -41,7 +41,7 @@ public class AirportRepository {
         }
     }
 
-    public Optional<Airport> findById(Integer id, Connection connection) {
+    private Optional<Airport> findById(Integer id, Connection connection) {
         var sql = """
                 SELECT id, code, name, address
                 FROM airport 

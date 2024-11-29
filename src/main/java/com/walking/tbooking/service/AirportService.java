@@ -1,7 +1,6 @@
 package com.walking.tbooking.service;
 
 import com.walking.tbooking.domain.airport.Airport;
-import com.walking.tbooking.exception.DuplicateUserException;
 import com.walking.tbooking.repository.AirportRepository;
 
 import java.util.List;

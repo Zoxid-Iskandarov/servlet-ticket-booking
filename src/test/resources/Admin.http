@@ -1,0 +1,41 @@
+### Получение страницы админа
+GET http://localhost:8085/servlet-ticket-booking/admin
+
+### Создание администратора
+POST http://localhost:8085/servlet-ticket-booking/admin
+Content-Type: application/json
+
+{
+  "email": "anna.petrovna@example.com",
+  "password": "strongPassword2024",
+  "firstName": "Anna",
+  "lastName": "Petrova",
+  "patronymic": "Ivanovna"
+}
+
+### Изменение личных данных
+PUT http://localhost:8085/servlet-ticket-booking/admin
+Content-Type: application/json
+
+{
+  "id": 3,
+  "email": "anna.petrovna@example.com",
+  "password": "annaPass",
+  "firstName": "Anna",
+  "lastName": "Petrova",
+  "patronymic": "Ivanovna"
+}
+
+### Удаление пользователя/администратора
+DELETE http://localhost:8085/servlet-ticket-booking/admin?id=2
+
+### Удаление пользователя/администратора (404 NOT FOUND)
+DELETE http://localhost:8085/servlet-ticket-booking/admin?id=99
+
+### Удаление пользователя/администратора (400 Bad Request)
+DELETE http://localhost:8085/servlet-ticket-booking/admin
+
+
+
+
+

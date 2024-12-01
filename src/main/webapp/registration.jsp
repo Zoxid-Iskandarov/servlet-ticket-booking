@@ -116,7 +116,7 @@
   <form action="${pageContext.request.contextPath}/signUp" method="post">
     <h1>Registration</h1>
     <%
-      if (response.getStatus() == 401) {
+      if (response.getStatus() == 409) {
     %>
     <div class="error">Что-то пошло не так. Попробуйте ещё раз.</div>
     <%

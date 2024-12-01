@@ -30,7 +30,7 @@ public class UnblockUserServlet extends HttpServlet {
                 resp.getWriter()
                         .write("Пользователь успешно разблокирован");
             } else {
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 resp.getWriter()
                         .write("Произошла ошибка при разблокировке пользователя");
             }

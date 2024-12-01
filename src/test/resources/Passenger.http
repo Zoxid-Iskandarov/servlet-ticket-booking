@@ -1,0 +1,42 @@
+### Получение зарегистрированных пассажиров на учетной записи
+GET http://localhost:8085/servlet-ticket-booking/passenger
+
+### Создания пассажира
+POST http://localhost:8085/servlet-ticket-booking/passenger
+Content-Type: application/json
+
+{
+    "firstName": "Alice",
+    "lastName": "Johnson",
+    "patronymic": "Marie",
+    "gender": "FEMALE",
+    "birthDate": "1990-04-15",
+    "passportData": "AA1234567",
+    "userId": 2
+}
+
+### Изменение данных пассажира
+PUT http://localhost:8085/servlet-ticket-booking/passenger
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "Alice",
+  "lastName": "Johnson",
+  "patronymic": "Marie",
+  "gender": "FEMALE",
+  "birthDate": "2000-12-2",
+  "passportData": "AC9994567",
+  "userId": 2
+}
+
+### Удаление пассажира
+DELETE http://localhost:8085/servlet-ticket-booking/passenger?id=1
+
+### Удаление пассажира (404 NOT FOUND)
+DELETE http://localhost:8085/servlet-ticket-booking/passenger?id=99
+
+### Удаление пассажира (400 Bad Request)
+DELETE http://localhost:8085/servlet-ticket-booking/passenger
+
+

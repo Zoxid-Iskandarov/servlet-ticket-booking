@@ -1,0 +1,29 @@
+### Получение страницы пользователя
+GET http://localhost:8085/servlet-ticket-booking/user
+
+### Изменение личных данных
+PUT http://localhost:8085/servlet-ticket-booking/user
+Content-Type: application/json
+
+{
+  "id": 2,
+  "email": "johnDoe21@gmail.com",
+  "password": "newJohnPass",
+  "firstName": "John",
+  "lastName": "Doe",
+  "patronymic": "Edward"
+}
+
+### Попытка обновления несуществующего пользователя (неправильный id)
+PUT http://localhost:8085/servlet-ticket-booking/user
+Content-Type: application/json
+
+{
+  "id": 99,
+  "email": "newEmail@gmail.com",
+  "password": "newJohnPass",
+  "firstName": "John",
+  "lastName": "Doe",
+  "patronymic": "Edward"
+}
+

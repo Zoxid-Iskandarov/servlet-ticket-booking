@@ -1,0 +1,8 @@
+### Блокировка пользователя
+POST http://localhost:8085/servlet-ticket-booking/admin/block?id=1
+
+### Блокировка пользователя (404 NOT FOUND)
+POST http://localhost:8085/servlet-ticket-booking/admin/block?id=99
+
+### Блокировка пользователя (400 BAD REQUEST)
+POST http://localhost:8085/servlet-ticket-booking/admin/block

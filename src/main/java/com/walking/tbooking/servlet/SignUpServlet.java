@@ -49,7 +49,7 @@ public class SignUpServlet extends HttpServlet {
     }
 
     private void handleError(HttpServletRequest req, HttpServletResponse resp, DuplicateUserException e) throws ServletException, IOException {
-        resp.setStatus(401);
+        resp.setStatus(409);
         req.getRequestDispatcher("/signUp").forward(req, resp);
     }
 }

@@ -1,0 +1,5 @@
+### Получение всех аэропортов
+GET http://localhost:8085/servlet-ticket-booking/airport
+
+### Получение аэропорта по ID
+GET http://localhost:8085/servlet-ticket-booking/airport?id=1

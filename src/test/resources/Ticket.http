@@ -1,0 +1,33 @@
+### Получени билета по ID
+GET http://localhost:8085/servlet-ticket-booking/ticket?id=1
+
+### Получени билета по ID (400 BAD REQUEST)
+GET http://localhost:8085/servlet-ticket-booking/ticket
+
+### Создание билета
+POST http://localhost:8085/servlet-ticket-booking/ticket
+Content-Type: application/json
+
+{
+  "flightId": 1,
+  "passengerId": 201,
+  "seatNumber": "14B",
+  "serviceClass": "ECONOMY",
+  "baggageAllowance": 25,
+  "handBaggageAllowance": 8
+}
+
+### Отмена билета
+PUT http://localhost:8085/servlet-ticket-booking/ticket?id=1
+Content-Type: application/json
+
+### Отмена билета (404 NOT FOUND)
+PUT http://localhost:8085/servlet-ticket-booking/ticket?id=99
+Content-Type: application/json
+
+### Отмена билета (400 BAD REQUEST)
+PUT http://localhost:8085/servlet-ticket-booking/ticket
+Content-Type: application/json
+
+
+

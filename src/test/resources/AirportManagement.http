@@ -1,0 +1,29 @@
+### Создание аэропорта
+POST http://localhost:8085/servlet-ticket-booking/admin/airport
+Content-Type: application/json
+
+{
+  "code": "LAX",
+  "name": "Los Angeles International Airport",
+  "address": "Los Angeles, CA, USA"
+}
+
+### Изменение данных аэропорта
+PUT http://localhost:8085/servlet-ticket-booking/admin/airport
+Content-Type: application/json
+
+{
+  "id": 1,
+  "code": "CDG",
+  "name": "Charles de Gaulle Airport",
+  "address": "95700 Roissy-en-France, France"
+}
+
+### Удаление аэропорта
+DELETE http://localhost:8085/servlet-ticket-booking/admin/airport?id=1
+
+### Удаление аэропорта (404 NOT FOUND)
+DELETE http://localhost:8085/servlet-ticket-booking/admin/airport?id=99
+
+### Удаление аэропорта (400 BAD REQUEST)
+DELETE http://localhost:8085/servlet-ticket-booking/admin/airport

@@ -1,0 +1,5 @@
+### Получени всех рейсов
+GET http://localhost:8085/servlet-ticket-booking/flight
+
+### Получени рейса по ID
+GET http://localhost:8085/servlet-ticket-booking/flight?id=1

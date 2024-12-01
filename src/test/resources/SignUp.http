@@ -1,0 +1,15 @@
+### Получение страницы регистрации
+GET http://localhost:8085/servlet-ticket-booking/signUp
+
+### Успешная регистрация пользователя
+POST http://localhost:8085/servlet-ticket-booking/signUp
+Content-Type: application/x-www-form-urlencoded
+
+email=johnDoe21@gmail.com&password=JohnPass&firstName=John&lastName=Doe&patronymic=Smith
+
+### Попытка повторной регистрации (должен вернуться 409 Conflict)
+POST http://localhost:8085/servlet-ticket-booking/signUp
+Content-Type: application/x-www-form-urlencoded
+
+email=johnDoe21@gmail.com&password=JohnPass&firstName=John&lastName=Doe&patronymic=Smith
+

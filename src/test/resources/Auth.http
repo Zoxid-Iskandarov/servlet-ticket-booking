@@ -1,0 +1,23 @@
+### Проверки страницы входа
+GET http://localhost:8085/servlet-ticket-booking/auth
+
+### Аутентификации через админа
+POST http://localhost:8085/servlet-ticket-booking/auth
+Content-Type: application/x-www-form-urlencoded
+
+email=admin@default.com&password=first_admin
+
+### Аутентификации через пользователя
+POST http://localhost:8085/servlet-ticket-booking/auth
+Content-Type: application/x-www-form-urlencoded
+
+email=johnDoe21@gmail.com&password=JohnPass
+
+### Аутентификация с некорректным паролем
+POST http://localhost:8085/servlet-ticket-booking/auth
+Content-Type: application/x-www-form-urlencoded
+
+email=johnDoe21@gmail.com&password=WrongPass
+
+### Выход из системы
+DELETE http://localhost:8085/servlet-ticket-booking/auth

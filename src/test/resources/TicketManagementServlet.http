@@ -1,0 +1,11 @@
+### Получени всех билетов
+GET http://localhost:8085/servlet-ticket-booking/admin/ticket
+
+### Отмена всех билетов пассажира по ID
+PUT http://localhost:8085/servlet-ticket-booking/admin/ticket?passenger_id=1
+
+### Отмена всех билетов пассажира по ID (404 NOT FOUND)
+PUT http://localhost:8085/servlet-ticket-booking/admin/ticket?passenger_id=99
+
+### Отмена всех билетов пассажира по ID (400 BAD REQUEST)
+PUT http://localhost:8085/servlet-ticket-booking/admin/ticket

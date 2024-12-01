@@ -1,0 +1,35 @@
+### Создание рейса
+POST http://localhost:8085/servlet-ticket-booking/admin/flight
+Content-Type: application/json
+
+{
+    "departureDate": "2024-12-01T08:30:00",
+    "arrivalDate": "2024-12-01T12:15:00",
+    "departureAirportId": 1,
+    "arrivalAirportId": 2,
+    "totalSeats": 200,
+    "availableSeats": 150
+}
+
+### Изменение рейса
+PUT http://localhost:8085/servlet-ticket-booking/admin/flight
+Content-Type: application/json
+
+{
+  "id": 1,
+  "departureDate": "2024-12-02T15:45:00",
+  "arrivalDate": "2024-12-02T19:30:00",
+  "departureAirportId": 2,
+  "arrivalAirportId": 3,
+  "totalSeats": 180,
+  "availableSeats": 120
+}
+
+### Удаление рейса
+DELETE http://localhost:8085/servlet-ticket-booking/admin/flight?id=1
+
+### Удаление рейса (404 NOT FOUND)
+DELETE http://localhost:8085/servlet-ticket-booking/admin/flight?id=99
+
+### Удаление рейса (400 BAD REQUEST)
+DELETE http://localhost:8085/servlet-ticket-booking/admin/flight

@@ -1,0 +1,8 @@
+### Разблокировка пользователя
+POST http://localhost:8085/servlet-ticket-booking/admin/unblock?id=1
+
+### Разблокировка пользователя (404 NOT FOUND)
+POST http://localhost:8085/servlet-ticket-booking/admin/unblock?id=99
+
+### Разблокировка пользователя (400 BAD REQUEST)
+POST http://localhost:8085/servlet-ticket-booking/admin/unblock
